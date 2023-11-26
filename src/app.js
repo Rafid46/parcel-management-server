@@ -7,19 +7,20 @@ const port = process.env.PORT || 5020;
 const connectDB = require("./db/connectDB");
 // const authRoutes = require("./routes/authentication/index");
 const usersRoutes = require("./routes/Users");
-const User = require("./models/user");
+const adminRoutes = require("./routes/admin");
 applyMiddleware(app);
 
 // app.use(authRoutes);
 // app.use(serviceRoutes);
 app.use(usersRoutes);
+app.use(adminRoutes);
 app.get("/health", (req, res) => {
   res.send("Server is running");
 });
-app.get("/users", async (req, res) => {
-  const result = await User.find().toArray();
-  res.send(result);
-});
+// app.get("/users", async (req, res) => {
+//   const result = await User.find().toArray();
+//   res.send(result);
+// });
 // handling all (get,post,update,delete.....) errors.
 app.all("*", (req, res, next) => {
   const error = new Error(`Can't find ${req.originalUrl} on the server`);
