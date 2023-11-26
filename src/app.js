@@ -8,12 +8,14 @@ const connectDB = require("./db/connectDB");
 // const authRoutes = require("./routes/authentication/index");
 const usersRoutes = require("./routes/Users");
 const adminRoutes = require("./routes/admin");
+const bookRoutes = require("./routes/bookParcel");
 applyMiddleware(app);
 
 // app.use(authRoutes);
 // app.use(serviceRoutes);
 app.use(usersRoutes);
 app.use(adminRoutes);
+app.use(bookRoutes);
 app.get("/health", (req, res) => {
   res.send("Server is running");
 });
