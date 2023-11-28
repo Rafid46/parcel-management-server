@@ -57,6 +57,10 @@ const BookSchema = new Schema({
     type: String,
     required: true,
   },
+  deliveryMan: {
+    type: String,
+    required: true,
+  },
 });
 
 const BookParcel = model("BookParcel", BookSchema);

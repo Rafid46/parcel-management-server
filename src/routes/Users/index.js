@@ -12,10 +12,10 @@ router.post("/health/users", async (req, res) => {
   res.send(result);
 });
 
-router.get("/health/users", async (req, res) => {
-  const cursor = await User.find();
-  res.send(cursor);
-});
+// router.get("/health/users", async (req, res) => {
+//   const cursor = await User.find();
+//   res.send(cursor);
+// });
 //   admin get
 // router.patch("/health/users/admin:id", async (req, res) => {
 //   await Admin.updateOne(
@@ -51,5 +51,22 @@ router.get("/health/users", async (req, res) => {
 //   //     { $set: { role: "admin" } }
 //   //   );
 // });
-
+router.get("/health/users", async (req, res) => {
+  let query = {};
+  if (req.query?.email) {
+    query = { email: req.query.email };
+  }
+  const result = await User.find(query);
+  res.send(result);
+});
+router.patch("/health/users/:id", async (req, res) => {
+  const id = req.params.id;
+  const filter = { _id: id };
+  const profileInfo = req.body;
+  const Info = {
+    photoURL: profileInfo.photoURL,
+  };
+  const result = await User.findOneAndUpdate(filter, Info);
+  res.send(result);
+});
 module.exports = router;
