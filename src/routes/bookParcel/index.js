@@ -23,25 +23,64 @@ router.get("/health/bookParcel/:id", async (req, res) => {
   res.send(cursor);
 });
 // update
-router.post("/health/bookParcel/onTheWay/:id", async (req, res) => {
+router.patch("/health/bookParcel/:id", async (req, res) => {
   const id = req.params.id;
   console.log(id);
   const filter = { _id: id };
   const updatedDoc = {
     status: "on the way",
   };
-  const result = await BookParcel.insertOne(filter, updatedDoc);
+  const result = await BookParcel.findOneAndUpdate(filter, updatedDoc);
   console.log(updatedDoc);
   res.send(result);
 });
-router.patch("/health/bookParcel/:id", async (req, res) => {
+// deliver
+router.patch("/health/bookParcel/cancel/:id", async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  const filter = { _id: id };
+  const updatedDoc = {
+    status: "cancel",
+  };
+  const result = await BookParcel.findOneAndUpdate(filter, updatedDoc);
+  console.log(updatedDoc);
+  res.send(result);
+});
+// cancel
+router.patch("/health/bookParcel/deliver/:id", async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  const filter = { _id: id };
+  const updatedDoc = {
+    status: "delivered  returned",
+  };
+  const result = await BookParcel.findOneAndUpdate(filter, updatedDoc);
+  console.log(updatedDoc);
+  res.send(result);
+});
+router.post("/health/bookParcel/:id", async (req, res) => {
+  const id = req.params.id;
+  const filter = { _id: id };
+  const data = req.body.deliveryMan;
+  const result = await BookParcel.updateOne(data, filter, Man);
+  res.send(result);
+});
+// update
+router.patch("/health/bookParcelUpdate/:id", async (req, res) => {
   const id = req.params.id;
   const filter = { _id: id };
   const data = req.body;
-  const Man = {
-    deliveryMan: data.deliveryMan,
+  const updateParcel = {
+    number: data.number,
+    parcelType: data.parcelType,
+    receiverName: data.receiverName,
+    address: data.address,
+    bookingDate: data.bookingDate,
+    requestedDeliveryDate: data.requestedDeliveryDate,
+    deliveryAddressLat: data.deliveryAddressLat,
+    deliveryAddressLong: data.deliveryAddressLong,
   };
-  const result = await BookParcel.findOneAndUpdate(data, filter, Man);
+  const result = await BookParcel.findOneAndUpdate(filter, updateParcel);
   res.send(result);
 });
 module.exports = router;

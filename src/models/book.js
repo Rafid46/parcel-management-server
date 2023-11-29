@@ -55,7 +55,6 @@ const BookSchema = new Schema({
   },
   status: {
     type: String,
-    required: true,
   },
   deliveryMan: {
     type: String,

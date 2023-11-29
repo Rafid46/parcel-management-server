@@ -20,12 +20,7 @@ router.post("/health/payments", async (req, res) => {
   const payment = req.body;
   const paymentResult = await Payment.insertMany(payment);
   console.log("payment info", payment);
-  const query = {
-    _id: {
-      $in: payment.parcelId.map((id) => id),
-    },
-  };
-  const deleteResult = await BookParcel.deleteMany(query);
-  res.send({ paymentResult, deleteResult });
+
+  res.send(paymentResult);
 });
 module.exports = router;
