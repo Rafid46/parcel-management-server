@@ -69,4 +69,15 @@ router.patch("/health/users/:id", async (req, res) => {
   const result = await User.findOneAndUpdate(filter, Info);
   res.send(result);
 });
+router.patch("/health/users/deliUpdate/:id", async (req, res) => {
+  const id = req.params.id;
+  const filter = { _id: id };
+  const profileInfo = req.body;
+  const Info = {
+    deliveryman: profileInfo.deliveryMan,
+  };
+  const result = await User.findOneAndUpdate(filter, Info);
+  res.send(result);
+});
+//
 module.exports = router;

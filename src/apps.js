@@ -2,7 +2,6 @@ const express = require("express");
 const globalErrorHandler = require("./utils/globalErrorHandler");
 const applyMiddleware = require("./middlewares/applyMiddleware");
 const app = express();
-const port = process.env.PORT || 5020;
 // const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const connectDB = require("./db/connectDB");
 // const authRoutes = require("./routes/authentication/index");
@@ -47,12 +46,4 @@ app.all("*", (req, res, next) => {
 
 // error handling middleware
 app.use(globalErrorHandler);
-
-const main = async () => {
-  await connectDB();
-  app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-  });
-};
-
-main();
+module.exports = app;

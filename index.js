@@ -8,6 +8,9 @@
 // app.use(cors());
 // app.use(express.json());
 
+const app = require("./src/apps");
+const connectDB = require("./src/db/connectDB");
+
 // const { MongoClient, ServerApiVersion } = require("mongodb");
 // const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.j1gssm8.mongodb.net/?retryWrites=true&w=majority`;
 
@@ -59,3 +62,12 @@
 // app.listen(port, () => {
 //   console.log(`parcel sitting on port ${port}`);
 // });
+const port = process.env.PORT || 5020;
+const main = async () => {
+  await connectDB();
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
+};
+
+main();

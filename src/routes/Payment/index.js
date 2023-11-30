@@ -1,4 +1,3 @@
-const BookParcel = require("../../models/book");
 const Payment = require("../../models/payment");
 
 const router = require("express").Router();
